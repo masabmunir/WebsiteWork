@@ -52,14 +52,7 @@ router.post('/signUp', async (req, res) => {
         }).save()
 
 
-        // const token = await user.generateAuthToken();
-        // console.log("token is " + token);
-
-        // res.cookie("jwt", token, {
-        //     expires: new Date(Date.now() + 30000),
-        //     httpOnly: true
-        // });
-
+        
         return res.status(200).json
             ({
                 Message: "Success",
