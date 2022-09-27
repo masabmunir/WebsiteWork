@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('./conn');
 const userRoutes = require('./routes');
-
+const port = process.env.port || 8000
 
 
 
@@ -22,7 +22,7 @@ app.use('/data',userRoutes);
 
 
 
-app.listen('8000',()=>{
+app.listen(port,()=>{
 
    console.log('Server Started at port 8000');
 })
