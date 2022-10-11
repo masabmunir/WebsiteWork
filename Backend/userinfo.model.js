@@ -34,6 +34,7 @@ const userdata = mongoose.Schema({
 })
 
 
+
 userdata.methods.generateAuthToken = async function(){
     try{
         const token = jwt.sign({_id:this._id.toString()}, "fdvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
@@ -61,5 +62,6 @@ userdata.methods.generateAuthToken = async function(){
 
 
 
-module.exports = mongoose.model('data',userdata);
+module.exports = mongoose.model('data',userdata,);
+
 

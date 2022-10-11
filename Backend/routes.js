@@ -51,7 +51,13 @@ router.post('/signUp', async (req, res) => {
             contact: req.body.contact
         }).save()
 
+        // const userExist = await user.findOne({email:email});
+            
+        // if(userExist){
+        //     return res.status(422).json({email:"Email Already Exist"});
+        // }
 
+        // const userInfo = new user({names,email,password,role,contact});
         
         return res.status(200).json
             ({
@@ -59,6 +65,7 @@ router.post('/signUp', async (req, res) => {
                 user: user
             })
 
+           
     }
     catch (error) {
         console.log(error)

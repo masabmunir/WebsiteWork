@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "@ng-bootstrap/ng-bootstrap": "^13.0.0",
+    "ngb-modal": "^2.0.3",
     "ngx-owl-carousel-o": "^14.0.1"
   }
 }
