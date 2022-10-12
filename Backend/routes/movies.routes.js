@@ -2,9 +2,9 @@ var express = require('express');
 const router = express.Router();
 const movModal = require('../dataModals/movies.modal')
 const ObjectID = require('mongoose').Types.ObjectId;
-const { singleUser, getUser, addUser, } = require('../Controllers/users-controller');
 const { delUser, getMovies, singleMovies, addMovies, updateMovies, delMovies } = require('../Controllers/movie-controller');
 
+// Getting all Movie's
 
 router.get('/', getMovies)
 
