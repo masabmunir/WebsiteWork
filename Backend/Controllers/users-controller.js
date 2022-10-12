@@ -1,14 +1,15 @@
 var express = require('express');
 const router = express.Router();
-const userdata = require('./userinfo.model');
+const userdata = require('../dataModals/userinfo.model');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-
 const ObjectID = require('mongoose').Types.ObjectId;
 
-//Get Api
 
-router.get('/', (req, res) => {
+
+//Get User
+
+const getUser = (req, res) => {
     userdata.find((err, doc) => {
         if (err) {
             console.log('Error in get Data' + err)
@@ -16,12 +17,11 @@ router.get('/', (req, res) => {
             res.send(doc);
         }
     })
-});
+}
 
+// Get data of Single User
 
-//Get Id of Single Person
-
-router.get('/:id', (req, res) => {
+const singleUser = (req, res) => {
     if (ObjectID.isValid(req.params.id)) {
         userdata.findById(req.params.id, (err, doc) => {
             if (err) {
@@ -33,14 +33,11 @@ router.get('/:id', (req, res) => {
     } else {
         res.status(400).send('No record found with ID' + req.params.id);
     }
-});
+}
 
+// Add user 
 
-
-
-//Post Api
-
-router.post('/signUp', async (req, res) => {
+const addUser =  async (req, res) => {
     try {
 
         let user = await new userdata({
@@ -51,7 +48,13 @@ router.post('/signUp', async (req, res) => {
             contact: req.body.contact
         }).save()
 
+        // const userExist = await user.findOne({email:email});
+            
+        // if(userExist){
+        //     return res.status(422).json({email:"Email Already Exist"});
+        // }
 
+        // const userInfo = new user({names,email,password,role,contact});
         
         return res.status(200).json
             ({
@@ -59,6 +62,7 @@ router.post('/signUp', async (req, res) => {
                 user: user
             })
 
+           
     }
     catch (error) {
         console.log(error)
@@ -68,12 +72,12 @@ router.post('/signUp', async (req, res) => {
         })
     }
 
-});
+}
 
 
-// Data Post Inside Website
+// To add website user
 
-router.post('/addUser', async (req, res) => {
+ const addWebUser = async (req, res) => {
     try {
 
         let user = await new userdata({
@@ -99,13 +103,11 @@ router.post('/addUser', async (req, res) => {
         })
     }
 
-});
+}
 
-// Ends Here
+// Login USer
 
-// Api of Login Component
-
-router.post('/loginUser', async (req, res) => {
+const loginUser = async (req, res) => {
     const { email, password } = req.body;
     userdata.findOne({ email: email }, async(err, userdata) => {
         if (userdata) {
@@ -128,13 +130,11 @@ router.post('/loginUser', async (req, res) => {
             res.send("not register")
         }
     })
-});
+}
 
+// Update Data 
 
-
-//Put ( Update ) Data
-
-router.put('/:id', (req, res) => {
+const updateData = (req, res) => {
 
     let user = {
         name: req.body.name,
@@ -155,12 +155,12 @@ router.put('/:id', (req, res) => {
     } else {
         res.status(400).send('No record found with ID' + req.params.id);
     }
-});
+}
 
 
 // Delete Data
 
-router.delete('/:id', (req, res) => {
+const delData = (req, res) => {
 
     if (ObjectID.isValid(req.params.id)) {
         userdata.findByIdAndRemove(req.params.id, (err, doc) => {
@@ -173,7 +173,7 @@ router.delete('/:id', (req, res) => {
     } else {
         res.status(400).send('No record found with ID' + req.params.id);
     }
-});
+}
 
 
-module.exports = router;
+module.exports = {getUser,singleUser,addUser,addWebUser,loginUser,updateData,delData}
